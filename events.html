@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect | Events</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">✦ Campus Connect</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a class="active" href="events.html">Events</a>
+        <a href="departments.html">Departments</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="register.html">Register</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Explore Events</h1>
+    <p>Find your next campus experience.</p>
+</div>
+
+<main class="wrap">
+
+    <fieldset>
+        <legend>Find an Event</legend>
+
+        <label for="search">Search events</label>
+        <input type="search" id="search" placeholder="Search events...">
+
+        <label for="filter">Filter by category</label>
+        <select id="filter">
+            <option value="">All Categories</option>
+            <option value="Technical">Technical</option>
+            <option value="Cultural">Cultural</option>
+            <option value="Sports">Sports</option>
+            <option value="Workshop">Workshop</option>
+        </select>
+    </fieldset>
+
+    <section>
+        <h2>Available Events</h2>
+        <div class="grid" id="list"></div>
+        <p id="empty-message" hidden>No events match your search.</p>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-container">
+
+        <div class="footer-about">
+            <h2 class="footer-logo"> Campus Connect</h2>
+            <p class="footer-description">
+                Bringing our campus community together through
+                events, creativity, innovation, and collaboration.
+            </p>
+            <span class="footer-tagline">
+                Discover. Participate. Connect.
+            </span>
+        </div>
+
+        <div class="footer-column">
+            <h3>Explore</h3>
+            <a href="index.html">Home</a>
+            <a href="events.html">Upcoming Events</a>
+            <a href="departments.html">Departments</a>
+            <a href="schedule.html">Event Schedule</a>
+            <a href="register.html">Event Registration</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Event Categories</h3>
+            <a href="events.html">Technical Events</a>
+            <a href="events.html">Cultural Activities</a>
+            <a href="events.html">Sports &amp; Recreation</a>
+            <a href="events.html">Workshops &amp; Seminars</a>
+            <a href="events.html">Student Activities</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Student Resources</h3>
+            <a href="departments.html">Department Activities</a>
+            <a href="schedule.html">Event Dates</a>
+            <a href="register.html">How to Participate</a>
+            <a href="register.html">Registration</a>
+            <p class="footer-note">
+                Stay informed and get involved in campus life.
+            </p>
+        </div>
+
+        <div class="footer-column footer-contact">
+            <h3>Get in Touch</h3>
+            <p><strong>Campus Events Team</strong></p>
+            <p>For event information and participation enquiries.</p>
+            <p>
+                Email:
+                <a href="mailto:campusconnect@example.com">
+                    campusconnect@example.com
+                </a>
+            </p>
+            <p>Location: College Campus</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Campus Connect. All rights reserved.</p>
+        <p class="footer-motto">
+            Celebrating ideas, talent, and campus community.
+        </p>
+        <a href="index.html">Back to Home ↑</a>
+    </div>
+</footer>
+
+<script>
+const data = [
+    ["Innovation Fest", "Technical", "Oct 15", "Computer Science"],
+    ["Cultural Evening", "Cultural", "Oct 20", "Arts"],
+    ["Sports Day", "Sports", "Oct 28", "Physical Education"],
+    ["AI Lab", "Workshop", "Nov 5", "Information Technology"]
+];
+
+const searchInput = document.getElementById("search");
+const categoryFilter = document.getElementById("filter");
+const eventList = document.getElementById("list");
+const emptyMessage = document.getElementById("empty-message");
+
+function renderEvents() {
+    const query = searchInput.value.trim().toLowerCase();
+    const category = categoryFilter.value;
+
+    const filteredEvents = data.filter(event => {
+        const searchableText = event.join(" ").toLowerCase();
+
+        return searchableText.includes(query) &&
+            (!category || event[1] === category);
+    });
+
+    eventList.innerHTML = filteredEvents.map(event => `
+        <div class="card">
+            <span class="stat">${event[2]}</span>
+            <h3>${event[0]}</h3>
+            <p>${event[1]} · ${event[3]}</p>
+            <a class="btn" href="register.html">Register</a>
+        </div>
+    `).join("");
+
+    emptyMessage.hidden = filteredEvents.length > 0;
+}
+
+searchInput.addEventListener("input", renderEvents);
+categoryFilter.addEventListener("change", renderEvents);
+
+renderEvents();
+</script>
+
+</body>
+</html>

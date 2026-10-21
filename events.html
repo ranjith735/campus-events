@@ -30,10 +30,10 @@
         <legend>Find an Event</legend>
 
         <label for="search">Search events</label>
-        <input type="search" id="search" placeholder="Search events...">
+        <input type="search" id="searchInput" placeholder="Search events...">
 
         <label for="filter">Filter by category</label>
-        <select id="filter">
+        <select id="categoryFilter">
             <option value="">All Categories</option>
             <option value="Technical">Technical</option>
             <option value="Cultural">Cultural</option>
@@ -44,8 +44,8 @@
 
     <section>
         <h2>Available Events</h2>
-        <div class="grid" id="list"></div>
-        <p id="empty-message" hidden>No events match your search.</p>
+        <div class="grid" id="eventList"></div>
+        <p id="emptyMessage" hidden>No events match your search.</p>
     </section>
 
 </main>
@@ -117,47 +117,7 @@
     </div>
 </footer>
 
-<script>
-const data = [
-    ["Innovation Fest", "Technical", "Oct 15", "Computer Science"],
-    ["Cultural Evening", "Cultural", "Oct 20", "Arts"],
-    ["Sports Day", "Sports", "Oct 28", "Physical Education"],
-    ["AI Lab", "Workshop", "Nov 5", "Information Technology"]
-];
-
-const searchInput = document.getElementById("search");
-const categoryFilter = document.getElementById("filter");
-const eventList = document.getElementById("list");
-const emptyMessage = document.getElementById("empty-message");
-
-function renderEvents() {
-    const query = searchInput.value.trim().toLowerCase();
-    const category = categoryFilter.value;
-
-    const filteredEvents = data.filter(event => {
-        const searchableText = event.join(" ").toLowerCase();
-
-        return searchableText.includes(query) &&
-            (!category || event[1] === category);
-    });
-
-    eventList.innerHTML = filteredEvents.map(event => `
-        <div class="card">
-            <span class="stat">${event[2]}</span>
-            <h3>${event[0]}</h3>
-            <p>${event[1]} · ${event[3]}</p>
-            <a class="btn" href="register.html">Register</a>
-        </div>
-    `).join("");
-
-    emptyMessage.hidden = filteredEvents.length > 0;
-}
-
-searchInput.addEventListener("input", renderEvents);
-categoryFilter.addEventListener("change", renderEvents);
-
-renderEvents();
-</script>
+<script src="js/events.js" defer></script>
 
 </body>
 </html>
